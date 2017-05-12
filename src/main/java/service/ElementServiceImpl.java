@@ -1,9 +1,9 @@
-package restful_api;
+package service;
 
 import dao.ElementDao;
 import dao.ElementDaoImpl;
 
-public class ElementService {
+public class ElementServiceImpl {
 
     ElementDao elementDaoImpl;
 
