@@ -33,13 +33,13 @@ public class ElementMqConsumerImpl implements MqConsumer {
                 try {
                     ElementMqBean bean = (ElementMqBean) ((ObjectMessage)message).getObject();
                     Optional.of(message).ifPresent(n -> elementDaoImpl.add(bean.getValue()));
-                    System.out.println("Successfully add to DB, value= : " + bean.getValue());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.info("Successfully add to DB, value= : " + bean.getValue());
+                } catch (JMSException jmse) {
+                    LOGGER.error(jmse);
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
