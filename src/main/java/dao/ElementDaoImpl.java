@@ -1,11 +1,16 @@
 package dao;
 
 import model.Element;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import tool.HibernateHelper;
 
+@Repository
 public class ElementDaoImpl implements ElementDao {
+
+    private static final Logger LOGGER = Logger.getLogger(ElementDaoImpl.class);
 
     @Override
     public void add(int toAdd) {

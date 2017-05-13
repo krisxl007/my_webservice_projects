@@ -1,22 +1,27 @@
 package service;
 
-import dao.ElementDao;
-import dao.ElementDaoImpl;
+import mqueue.ElementMqProducerImpl;
+import mqueue.MqProducer;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
-public class ElementServiceImpl {
+import java.util.List;
 
-    ElementDao elementDaoImpl;
+@Service
+public class ElementServiceImpl implements ElementService{
 
-    public String push(int i1, int i2) {
-        elementDaoImpl = new ElementDaoImpl();
-        elementDaoImpl.add(i1);
-        elementDaoImpl.add(i2);
+    private static final Logger LOGGER = Logger.getLogger(ElementServiceImpl.class);
 
+    @Override
+    public String push(int value1, int value2) {
+        MqProducer producer = new ElementMqProducerImpl();
+        producer.produce(value1);
+        producer.produce(value2);
         return "ok";
     }
 
-    public static void main(String[] args) {
-        ElementDaoImpl elementDaoImpl = new ElementDaoImpl();
-        elementDaoImpl.add(100);
+    @Override
+    public List<String> list() {
+        return null;
     }
 }
