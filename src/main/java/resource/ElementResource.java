@@ -18,7 +18,7 @@ public class ElementResource {
     private ElementService elementServiceImpl;
 
     @Path("/values")
-    @POST
+    @GET
     @Produces({ MediaType.APPLICATION_JSON })
     public String push(@QueryParam("value1") final Integer value1,
                        @QueryParam("value2") final Integer value2) {

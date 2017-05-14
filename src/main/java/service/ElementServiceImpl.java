@@ -7,6 +7,8 @@ import mqueue.MqProducer;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class ElementServiceImpl implements ElementService{
     @Autowired
     private ElementDao elementDaoImpl;
 
+    @Transactional
     @Override
     public String push(int value1, int value2) {
         MqProducer producer = new ElementMqProducerImpl();
@@ -27,11 +30,13 @@ public class ElementServiceImpl implements ElementService{
                 : "Value1: " + value1Status + " Value2: " + value2Status;
     }
 
+    @Transactional
     @Override
     public List<String> list() {
         return elementDaoImpl.getAll();
     }
 
+    @Transactional
     @Override
     public String getById(int id) {
         return elementDaoImpl.getById(id);
