@@ -2,13 +2,9 @@ package dao;
 
 import constant.QueryValueConstant;
 import model.Element;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import tool.HibernateHelper;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,17 +17,6 @@ public class ElementDaoImpl implements ElementDao {
 
     @Override
     public void add(int toAdd) {
-//        SessionFactory sessionFactory = HibernateHelper.getSessionFactory();
-//        Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//
-//        Element element = new Element();
-//        element.setValue(toAdd);
-//        session.save(element);
-//
-//        session.getTransaction().commit();
-//        session.close();
-//        sessionFactory.close();
         Element element = new Element();
         element.setValue(toAdd);
         hibernateTemplate.save(element);
@@ -54,16 +39,6 @@ public class ElementDaoImpl implements ElementDao {
 
     @Override
     public String getById(int id) {
-//        SessionFactory sessionFactory = HibernateHelper.getSessionFactory();
-//        Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//
-//        Element element = (Element)session.get(Element.class, id);
-//
-//        session.getTransaction().commit();
-//        session.close();
-//        sessionFactory.close();
-
         Element element = hibernateTemplate.get(Element.class, id);
         return Optional.ofNullable(element).isPresent()
                 ? String.valueOf(element.getValue())
