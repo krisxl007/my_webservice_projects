@@ -22,23 +22,29 @@ public class ElementServiceImpl implements ElementService{
     @Transactional
     @Override
     public String push(int value1, int value2) {
+        LOGGER.info("Requested push(): value1=" + value1 + ",value2=" + value2);
+
         MqProducer producer = new ElementMqProducerImpl();
         String value1Status = producer.produce(value1);
         String value2Status = producer.produce(value2);
-        LOGGER.info("Values have been push to jms queue!");
-        return value1Status.equals(value2Status) ? QueryValueConstant.OK
+
+        return !QueryValueConstant.NOT_OK.equalsIgnoreCase(value1Status)
+                &&  !QueryValueConstant.NOT_OK.equalsIgnoreCase(value2Status)
+                ? QueryValueConstant.OK
                 : "Value1: " + value1Status + " Value2: " + value2Status;
     }
 
     @Transactional
     @Override
     public List<String> list() {
+        LOGGER.info("Requested list()");
         return elementDaoImpl.getAll();
     }
 
     @Transactional
     @Override
     public String getById(int id) {
+        LOGGER.info("Requested getById(): id=" + id);
         return elementDaoImpl.getById(id);
     }
 
